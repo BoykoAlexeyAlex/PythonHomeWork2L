@@ -7,34 +7,28 @@ def average (lst):
 def align (lst) :
     max_len = 0
     for element in lst :
-        if len(element) > max_len :
-            max_len = len(element)
+        if len(element[0]) > max_len :
+            max_len = len(element[0])
     for i in range(len(lst)) :
-        for j in range (max_len - len(lst[i])):
-            lst[i] += ' '
+        for j in range (max_len - len(lst[i][0])):
+            lst[i].insert(4,' ')
+        lst[i].insert(4,'  ')
     return lst
-
 
 
 file_src = open('src_14.txt', encoding='utf-8')
 file_res = open('src_res','w',encoding='utf-8')
 
-lst_num= []
-lst_names =[]
+lst = []
+
 for line in file_src:
-    lst_num.append(line[21:(len(line)-1)].split())
-    lst_names.append(line[0:21])
-lst_names = list(map(lambda x: x.split(),lst_names))
-#print(lst_names)
-lst_names = align(list(map(lambda x: str(x[0])+' '+ (x[1][0:1])+'.',lst_names)))
-#lst_names = align(lst_names)
-#print(lst_names)
+    lst.append(line.split())
 
-for i in range (len(lst_names)):
+lst = align(list(map(lambda x: [x[0],' ', x[1][0],'.',average(x[2:])],lst)))
 
-    file_res.write(lst_names[i]+'  ')
-    file_res.write(average(lst_num[i]))
-    file_res.write('\n')
+for i in range (len(lst)):
+    file_res.write(''.join(lst[i])+'\n')
+
 
 file_res.close()
 file_src.close()
