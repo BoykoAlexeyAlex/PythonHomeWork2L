@@ -17,14 +17,14 @@ def align (lst) :
 
 
 file_src = open('src_14.txt', encoding='utf-8')
-file_res = open('src_res','w',encoding='utf-8')
+file_res = open('src_res.txt','w',encoding='utf-8')
 
 lst = []
 
 for line in file_src:
     lst.append(line.split())
 
-lst = align(list(map(lambda x: [x[0],' ', x[1][0],'.',average(x[2:])],lst)))
+lst = align(list(map(lambda x: [x[1],' ', x[0][0],'.',average(x[2:])],lst)))
 
 for i in range (len(lst)):
     file_res.write(''.join(lst[i])+'\n')
