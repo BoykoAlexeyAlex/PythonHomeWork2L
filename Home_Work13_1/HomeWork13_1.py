@@ -5,29 +5,27 @@ def average (lst):
     return str(round(sum1/len(lst),2))
 
 def align (lst) :
-    max_len = 0
-    for element in lst :
-        if len(element[0]) > max_len :
-            max_len = len(element[0])
-    for i in range(len(lst)) :
-        for j in range (max_len - len(lst[i][0])):
-            lst[i].insert(4,' ')
-        lst[i].insert(4,'  ')
+    for i in range(21+len(lst[-1]) - len(''.join(lst))):
+        lst.insert(4,' ')
+
     return lst
 
 
 file_src = open('src_14.txt', encoding='utf-8')
 file_res = open('src_res.txt','w',encoding='utf-8')
 
-lst = []
+line_num = 0
+av_sum = 0
 
 for line in file_src:
-    lst.append(line.split())
+    l = line.split()
+    file_res.write(''.join(align([l[1],' ',l[0][0],'.',average(l[2:])]))+'\n')
+    if float(average(l[2:])) < 5:
+        print(''.join(align([l[1],' ',l[0][0],'.',average(l[2:])])))
+    av_sum += float(average(l[2:]))
+    line_num +=1
 
-lst = align(list(map(lambda x: [x[1],' ', x[0][0],'.',average(x[2:])],lst)))
-
-for i in range (len(lst)):
-    file_res.write(''.join(lst[i])+'\n')
+print('Средний балл группы ', round(av_sum/line_num,2))
 
 
 file_res.close()
