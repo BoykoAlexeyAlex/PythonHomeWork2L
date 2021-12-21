@@ -1,4 +1,7 @@
-
+def align(str1):
+    for i in range(20 - len(str1)):
+        str1 += ' '
+    return str1
 
 class Student () :
 
@@ -15,27 +18,35 @@ class Student () :
         self.__grade = input('Введите оценку студента ')
 
 
+
     def std_print(self):
-        print(f'Имя: {self.__name} Фамилия: {self.__surname} Оценка {self.__grade}')
+
+        print(align(self.__surname)+align(self.__name)+align(self.__grade))
 
 class Group () :
 
-    def __init__(self,lst=[]):
-        self.lst = lst
+    def __init__(self):
+        self.__lst = []
 
-    def add_student(self,student):
-        self.lst.append(student)
+
+    def add_student(self):
+        while True:
+            a = Student()
+            a.set_student()
+            self.__lst.append(a)
+            key = input('Введите "n" для окончания ввода или любой символ для продолжения ')
+            if key == 'n':
+                break
 
     def print_group(self):
-        for i in range (len(self.lst)):
-            self.lst[i].std_print()
+        print(align('Фамилия') + align('Имя') + align('Оценка'))
+        print()
+        for i in range (len(self.__lst)):
+            self.__lst[i].std_print()
 
 
 group1 = Group()
-for i in range (5):
-    a = Student()
-    a.set_student()
-    group1.add_student(a)
+group1.add_student()
 print()
 group1.print_group()
 
